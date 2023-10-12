@@ -6,5 +6,5 @@ CXX_FLAGS = -g -Wall -Wextra -std=c++11 -Wno-unused-parameter -Wno-format -Wno-u
 
 CXX_DEFINES = -DCACHE_SIZE_16K=50000 -DLINUX_X86_PLAT -DOPEN_LAB_TRACE -DPARTNER_ISURECLOUD -DSPDLOG_LEVEL_TRACE=0
 
-CXX_INCLUDES = -I/home/yinwenpei/modified_cubic -I/home/yinwenpei/modified_cubic/mpd -I/home/yinwenpei/modified_cubic/mpd/app -I/home/yinwenpei/modified_cubic/mpd/basefw -I/home/yinwenpei/modified_cubic/mpd/basefw/base -I/home/yinwenpei/modified_cubic/mpd/download/transportcontroller -I/home/yinwenpei/modified_cubic/mpd/third_lib/json/single_include -I/home/yinwenpei/modified_cubic/demo/utils -I/home/yinwenpei/modified_cubic/demo 
+CXX_INCLUDES = -I/home/yinwenpei/PriorityAgl_cubic -I/home/yinwenpei/PriorityAgl_cubic/mpd -I/home/yinwenpei/PriorityAgl_cubic/mpd/app -I/home/yinwenpei/PriorityAgl_cubic/mpd/basefw -I/home/yinwenpei/PriorityAgl_cubic/mpd/basefw/base -I/home/yinwenpei/PriorityAgl_cubic/mpd/download/transportcontroller -I/home/yinwenpei/PriorityAgl_cubic/mpd/third_lib/json/single_include -I/home/yinwenpei/PriorityAgl_cubic/demo/utils -I/home/yinwenpei/PriorityAgl_cubic/demo 
 

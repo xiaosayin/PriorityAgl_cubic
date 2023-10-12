@@ -1,4 +1,4 @@
-# Install script for directory: /home/yinwenpei/modified_cubic/mpd
+# Install script for directory: /home/yinwenpei/PriorityAgl_cubic/mpd
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
