@@ -32,10 +32,10 @@ int main(int argc, char** argv)
     combined_logger->set_pattern("[%D %H:%M:%S.%e][%l][%s:%# %!()]%v");
 //    combined_logger->set_level(spdlog::level::debug);
 //    combined_logger->flush_on(spdlog::level::debug);
-     combined_logger->set_level(spdlog::level::off);
-     combined_logger->flush_on(spdlog::level::off);
-//     combined_logger->set_level(spdlog::level::trace);
-//     combined_logger->flush_on(spdlog::level::trace);
+//     combined_logger->set_level(spdlog::level::off);
+//     combined_logger->flush_on(spdlog::level::off);
+    combined_logger->set_level(spdlog::level::trace);
+    combined_logger->flush_on(spdlog::level::trace);
     spdlog::set_default_logger(combined_logger);
 
     ////////////////////parse initiate parameters//////////////////////////////

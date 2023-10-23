@@ -4,6 +4,9 @@ analysis*/
 cmake-build-debug/
 build/
 
+# logfile
+*stdout
+
 # Prerequisites
 *.d
 

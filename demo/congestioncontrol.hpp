@@ -87,6 +87,10 @@ public:
     {
     };
 
+    virtual void Clear_Send_number(){};
+    virtual void Add_Send_number(){};
+    virtual int64_t Get_Send_number(){return 0;};
+
     virtual ~LossDetectionAlgo() = default;
 
 };
@@ -126,11 +130,24 @@ public:
         }
     }
 
+    void Add_Send_number() override{
+        ++Send_number_100ms;
+    }
+
+    void Clear_Send_number() override{
+        Send_number_100ms = 0;
+    }
+
+    int64_t Get_Send_number() override{
+        return Send_number_100ms;
+    }
+
     ~DefaultLossDetectionAlgo() override
     {
     }
 
 private:
+    int64_t Send_number_100ms = 0; // record total send number every DoAlarmTimeoutDetection
 };
 
 

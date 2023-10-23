@@ -4,6 +4,7 @@
 
 #include <deque>
 #include <memory>
+#include <iostream>
 #include "congestioncontrol.hpp"
 #include "basefw/base/log.h"
 #include "packettype.h"
@@ -215,6 +216,7 @@ public:
             sentpkt.sendtic = sendtic;
             m_congestionCtl->OnDataSent(sentpkt);
             seqidx++;
+            m_lossDetect->Add_Send_number();
         }
 
     }
@@ -319,9 +321,17 @@ public:
             {
                 m_inflightpktmap.RemoveFromInFlight(pkt);
             }
+            double lossrate = 0.0;
+            if(m_lossDetect->Get_Send_number() != 0){
+                lossrate = static_cast<double>(loss.lossPackets.size())/m_lossDetect->Get_Send_number();
+            }
+             
+            std::cout << lossrate << std::endl;
+            SPDLOG_TRACE("yinwenpei lossrate = {}", lossrate);
             m_congestionCtl->OnDataAckOrLoss(ack, loss, m_rttstats);
             InformLossUp(loss);
         }
+        m_lossDetect->Clear_Send_number();
     }
 
     Duration GetRtt()
