@@ -277,35 +277,68 @@ private:
 
         // 4. fill up each session Queue, based on min RTT first order, and send
         std::vector<DataNumber> vecToSendpieceNums;
-        //for (auto &&rtt_sess: m_sortmmap) {
-        for(auto &&rtt_sess: new_sortmmap){
-            auto &sessStream = rtt_sess.second;
-//            auto &&sessId = sessStream->GetSessionId();
-            auto sessId = sessStream->GetSessionId();
-            auto &&itor_id_ssQ = m_session_needdownloadpieceQ.find(sessId);
-            if (itor_id_ssQ != m_session_needdownloadpieceQ.end()) {
-                auto &&id_sendcnt = toSendinEachSession.find(sessId);
-                if (id_sendcnt != toSendinEachSession.end()) {
-                    auto uni32DataReqCnt = toSendinEachSession.at(sessId);
-                    for (auto &&itr = m_downloadQueue.begin();
-                         itr != m_downloadQueue.end() && uni32DataReqCnt > 0;) {
+        if(!new_sortmmap.empty()){
+            for(auto &&rtt_sess: new_sortmmap){
+                auto &sessStream = rtt_sess.second;
+    //            auto &&sessId = sessStream->GetSessionId();
+                auto sessId = sessStream->GetSessionId();
+                auto &&itor_id_ssQ = m_session_needdownloadpieceQ.find(sessId);
+                if (itor_id_ssQ != m_session_needdownloadpieceQ.end()) {
+                    auto &&id_sendcnt = toSendinEachSession.find(sessId);
+                    if (id_sendcnt != toSendinEachSession.end()) {
+                        auto uni32DataReqCnt = toSendinEachSession.at(sessId);
+                        for (auto &&itr = m_downloadQueue.begin();
+                            itr != m_downloadQueue.end() && uni32DataReqCnt > 0;) {
 
-                        vecToSendpieceNums.push_back(*itr);
-                        m_downloadQueue.erase(itr++);
-                        --uni32DataReqCnt;
+                            vecToSendpieceNums.push_back(*itr);
+                            m_downloadQueue.erase(itr++);
+                            --uni32DataReqCnt;
 
+                        }
+
+                        m_session_needdownloadpieceQ[sessId].insert(vecToSendpieceNums.begin(),
+                                                                    vecToSendpieceNums.end());
+                        vecToSendpieceNums.clear();
+                    } else {
+                        SPDLOG_ERROR("Can't found session {} in toSendinEachSession", sessId.ToLogStr());
                     }
 
-                    m_session_needdownloadpieceQ[sessId].insert(vecToSendpieceNums.begin(),
-                                                                vecToSendpieceNums.end());
-                    vecToSendpieceNums.clear();
+
                 } else {
-                    SPDLOG_ERROR("Can't found session {} in toSendinEachSession", sessId.ToLogStr());
+                    SPDLOG_ERROR("Can't found Session:{} in session_needdownloadsubpiece", sessId.ToLogStr());
                 }
+            }
+        }
+        else{
+            for(auto &&rtt_sess: m_sortmmap){
+                auto &sessStream = rtt_sess.second;
+    //            auto &&sessId = sessStream->GetSessionId();
+                auto sessId = sessStream->GetSessionId();
+                auto &&itor_id_ssQ = m_session_needdownloadpieceQ.find(sessId);
+                if (itor_id_ssQ != m_session_needdownloadpieceQ.end()) {
+                    auto &&id_sendcnt = toSendinEachSession.find(sessId);
+                    if (id_sendcnt != toSendinEachSession.end()) {
+                        auto uni32DataReqCnt = toSendinEachSession.at(sessId);
+                        for (auto &&itr = m_downloadQueue.begin();
+                            itr != m_downloadQueue.end() && uni32DataReqCnt > 0;) {
+
+                            vecToSendpieceNums.push_back(*itr);
+                            m_downloadQueue.erase(itr++);
+                            --uni32DataReqCnt;
+
+                        }
+
+                        m_session_needdownloadpieceQ[sessId].insert(vecToSendpieceNums.begin(),
+                                                                    vecToSendpieceNums.end());
+                        vecToSendpieceNums.clear();
+                    } else {
+                        SPDLOG_ERROR("Can't found session {} in toSendinEachSession", sessId.ToLogStr());
+                    }
 
 
-            } else {
-                SPDLOG_ERROR("Can't found Session:{} in session_needdownloadsubpiece", sessId.ToLogStr());
+                } else {
+                    SPDLOG_ERROR("Can't found Session:{} in session_needdownloadsubpiece", sessId.ToLogStr());
+                }
             }
         }
 
