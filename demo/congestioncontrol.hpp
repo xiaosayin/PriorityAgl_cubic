@@ -90,6 +90,9 @@ public:
     virtual void Clear_Send_number(){};
     virtual void Add_Send_number(){};
     virtual int64_t Get_Send_number(){return 0;};
+    virtual void Update_LossRate(double loss_packet_number){};
+    virtual double Get_LossRate(){return 0.0;};
+
 
     virtual ~LossDetectionAlgo() = default;
 
@@ -142,12 +145,23 @@ public:
         return Send_number_100ms;
     }
 
+    void Update_LossRate(double loss_packet_number){
+        if(Send_number_100ms != 0){
+            LossRate = loss_packet_number/Send_number_100ms;
+        }
+    }
+
+    double Get_LossRate(){
+        return LossRate;
+    }
+
     ~DefaultLossDetectionAlgo() override
     {
     }
 
 private:
     int64_t Send_number_100ms = 0; // record total send number every DoAlarmTimeoutDetection
+    double LossRate = 0.0;
 };
 
 

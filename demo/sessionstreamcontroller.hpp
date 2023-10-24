@@ -321,13 +321,9 @@ public:
             {
                 m_inflightpktmap.RemoveFromInFlight(pkt);
             }
-            double lossrate = 0.0;
-            if(m_lossDetect->Get_Send_number() != 0){
-                lossrate = static_cast<double>(loss.lossPackets.size())/m_lossDetect->Get_Send_number();
-            }
-             
-            std::cout << lossrate << std::endl;
-            SPDLOG_TRACE("yinwenpei lossrate = {}", lossrate);
+            m_lossDetect->Update_LossRate(static_cast<int>(loss.lossPackets.size()));
+            std::cout << m_lossDetect->Get_LossRate() << std::endl;
+            SPDLOG_TRACE("yinwenpei lossrate = {}", m_lossDetect->Get_LossRate());
             m_congestionCtl->OnDataAckOrLoss(ack, loss, m_rttstats);
             InformLossUp(loss);
         }
