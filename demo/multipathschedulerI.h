@@ -63,6 +63,8 @@ public:
 
     virtual void SortSession(std::multimap<Duration, fw::shared_ptr<SessionStreamController>>& sortmmap) = 0;
 
+    virtual void SortSession(std::multimap<double, fw::shared_ptr<SessionStreamController>>& sortmmap) = 0;
+
     virtual int32_t DoSendSessionSubTask(const fw::ID& sessionid) = 0;
 
     virtual ~MultiPathSchedulerAlgo() = default;

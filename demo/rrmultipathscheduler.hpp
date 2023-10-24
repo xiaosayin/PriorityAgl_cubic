@@ -93,7 +93,8 @@ public:
 
         // sort session first
         SPDLOG_TRACE("DoMultiPathSchedule");
-        SortSession(m_sortmmap);
+        //SortSession(m_sortmmap);
+        SortSession(new_sortmmap);
         // send pkt requests on each session based on ascend order;
         FillUpSessionTask();
 
@@ -171,6 +172,16 @@ public:
             sortmmap.emplace(score, sessionItor.second);
         }
 
+    }
+
+    void SortSession(std::multimap<double, fw::shared_ptr<SessionStreamController>> &sortmmap) override {
+        //TODO this does not sort the session
+        SPDLOG_TRACE("");
+        sortmmap.clear();
+        for (auto &&sessionItor: m_dlsessionmap) {
+            double score = sessionItor.second->Get_LossRate();
+            sortmmap.emplace(score, sessionItor.second);
+        }
     }
 
 private:
@@ -266,7 +277,8 @@ private:
 
         // 4. fill up each session Queue, based on min RTT first order, and send
         std::vector<DataNumber> vecToSendpieceNums;
-        for (auto &&rtt_sess: m_sortmmap) {
+        //for (auto &&rtt_sess: m_sortmmap) {
+        for(auto &&rtt_sess: new_sortmmap){
             auto &sessStream = rtt_sess.second;
 //            auto &&sessId = sessStream->GetSessionId();
             auto sessId = sessStream->GetSessionId();
@@ -312,6 +324,7 @@ private:
     /// It's multipath scheduler's duty to maintain session_needdownloadsubpiece, and m_sortmmap
     std::map<fw::ID, std::set<DataNumber>> m_session_needdownloadpieceQ;// session task queues
     std::multimap<Duration, fw::shared_ptr<SessionStreamController>> m_sortmmap;
+    std::multimap<double, fw::shared_ptr<SessionStreamController>> new_sortmmap;
     fw::weak_ptr<MultiPathSchedulerHandler> m_phandler;
 
 };

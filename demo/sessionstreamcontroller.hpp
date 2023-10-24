@@ -352,6 +352,11 @@ public:
         return m_sessionId;
     }
 
+    double Get_LossRate(){
+        return m_lossDetect->Get_LossRate();
+    }
+
+
 private:
     bool isRunning{ false };
 
