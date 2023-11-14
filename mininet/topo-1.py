@@ -144,13 +144,24 @@ if __name__ == '__main__':
     # btlink_opts = {"bw": 2, "delay": "15ms", "loss1": 8, "loss2": 8, "max_queue_size": 10}
     #######################
     # btlink_opts = {"bw": 1.5, "delay": "15ms", "loss1": 0, "loss2": 0, "max_queue_size": 10}
+    # serverlink_opts = [
+    #     {"delay": "5ms"},
+    #     {"delay": "15ms"},
+    #     {"delay": "25ms"},
+    #     {"delay": "35ms"},
+    #     {"delay": "45ms"}
+    # ]
+    
     serverlink_opts = [
-        {"delay": "5ms"},
-        {"delay": "15ms"},
-        {"delay": "25ms"},
-        {"delay": "35ms"},
-        {"delay": "45ms"}
+        {"delay": "5ms", "loss1":1, "loss2":1},
+        {"delay": "15ms", "loss1":5, "loss2":5},
+        {"delay": "25ms", "loss1":10, "loss2":10},
+        {"delay": "35ms", "loss1":15, "loss2":15},
+        {"delay": "45ms", "loss1":20, "loss2":20}
     ]
+    
+    
+    
     # serverlink_opts = [
     #     {"delay": "5ms", "max_queue_size": 10},
     #     {"delay": "15ms", "max_queue_size": 10},
@@ -191,11 +202,24 @@ if __name__ == '__main__':
         server_proc_ls.append(server_proc)
         # sleep(1)  # pause for one second
     sleep(3)  # wait for three seconds to finish the connecting process
+    
+    # client executable
+    client_node = net.getNodeByName('client')
+    client_start_cmd = f'{curr_dir}/MPDtest {curr_dir}/config/downnode_mn1.json '
+    client_std_f = open('client_stdout', mode='w')
+    client_start_cmd_args = shlex.split(client_start_cmd)
+    client_proc = client_node.popen(client_start_cmd_args, stdout=client_std_f)
+    
+    while client_proc.poll() is None:
+        info('client is running***')
+        sleep(2)
+    info('****** client exit *******')
+    
 
-    info('*** Running CLI\n')
-    warning('TYPE exit or CTRL + D to exit!! DO NOT kill the CLI interface.There will be zombie process ')
+    # info('*** Running CLI\n')
+    # warning('TYPE exit or CTRL + D to exit!! DO NOT kill the CLI interface.There will be zombie process ')
 
-    CLI(net)  # start cmd line interface
+    # CLI(net)  # start cmd line interface
     """
     To start download test, in CMD line interface,type: client {absolute dir}/MPDtest downnode_mn.json
     In my computer, it's like,
@@ -205,12 +229,15 @@ if __name__ == '__main__':
 
     info('*** Stopping network\n')
     # client_pcap.terminate()
+    client_proc.kill()
+    if not client_std_f.closed:
+        client_std_f.close()
     # clean server first
-    # for server_proc in server_proc_ls:
-    #     server_proc.kill()
-    # for sf in server_std_f_ls:
-    #     if not sf.closed:
-    #         sf.close()
+    for server_proc in server_proc_ls:
+        server_proc.kill()
+    for sf in server_std_f_ls:
+        if not sf.closed:
+            sf.close()
 
     sleep(1)
     net.stop()

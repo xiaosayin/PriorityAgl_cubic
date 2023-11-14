@@ -1,1 +1,1 @@
-client /home/yinwenpei/modified_cubic/mininet/MPDtest /home/yinwenpei/modified_cubic/mininet/config/downnode_mn.json
+client /home/yinwenpei/modified_cubic/mininet/MPDtest /home/yinwenpei/modified_cubic/mininet/config/downnode_mn1.json

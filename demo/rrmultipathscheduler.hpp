@@ -279,6 +279,7 @@ private:
         std::vector<DataNumber> vecToSendpieceNums;
         if(!new_sortmmap.empty()){
             for(auto &&rtt_sess: new_sortmmap){
+                SPDLOG_TRACE("Fill up loss rate: {}", rtt_sess.first);
                 auto &sessStream = rtt_sess.second;
     //            auto &&sessId = sessStream->GetSessionId();
                 auto sessId = sessStream->GetSessionId();

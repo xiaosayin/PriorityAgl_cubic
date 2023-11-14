@@ -138,12 +138,20 @@ if __name__ == '__main__':
     # config
     client_left_opts = {"bw": 1000, "delay": "10ms", "max_queue_size": 1000}
     btlink_opts = {"bw": 1.5, "delay": "30ms", "loss1": 1, "loss2": 1, "max_queue_size": 20}
+    # serverlink_opts = [
+    #     {"delay": "5ms"},
+    #     {"delay": "10ms"},
+    #     {"delay": "15ms"},
+    #     {"delay": "20ms"}
+    # ]
+    
     serverlink_opts = [
-        {"delay": "5ms"},
-        {"delay": "10ms"},
-        {"delay": "15ms"},
-        {"delay": "20ms"}
+        {"delay": "5ms", "loss1":1, "loss2":1},
+        {"delay": "10ms", "loss1":8, "loss2":8},
+        {"delay": "15ms", "loss1":3, "loss2":3},
+        {"delay": "20ms", "loss1":6, "loss2":16}
     ]
+    
     server_num = len(serverlink_opts)
 
     topo = DumbbellTopo(server_number=server_num,
