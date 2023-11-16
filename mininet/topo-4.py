@@ -127,12 +127,20 @@ if __name__ == '__main__':
     # config
     client_left_opts = {"bw": 1000, "delay": "10ms", "max_queue_size": 200}
     btlink_opts = {"bw": 10, "delay": "30ms", "loss1": 1, "loss2": 1, "max_queue_size": 100}
+    # serverlink_opts = [
+    #     {"delay": "5ms"},
+    #     {"delay": "10ms"},
+    #     {"delay": "15ms"},
+    #     {"delay": "20ms"}
+    # ]
+    
     serverlink_opts = [
-        {"delay": "5ms"},
-        {"delay": "10ms"},
-        {"delay": "15ms"},
-        {"delay": "20ms"}
+        {"delay": "5ms", "loss1":10, "loss2":10},
+        {"delay": "10ms", "loss1":3, "loss2":3},
+        {"delay": "15ms", "loss1":15, "loss2":15},
+        {"delay": "20ms", "loss1":20, "loss2":20}
     ]
+    
     server_num = len(serverlink_opts)
 
     topo = DumbbellTopo(server_number=server_num,
@@ -191,7 +199,7 @@ if __name__ == '__main__':
         info("client programs is still running...\n")
         sleep(2)
 
-    CLI(net)  # start cmd line interface
+    # CLI(net)  # start cmd line interface
     """
     To start download test, in CMD line interface,type: client {absolute dir}/MPDtest downnode_mn.json
     In my computer, it's like,

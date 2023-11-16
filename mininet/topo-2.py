@@ -221,7 +221,7 @@ if __name__ == '__main__':
     info('*** Running CLI\n')
     warning('TYPE exit or CTRL + D to exit!! DO NOT kill the CLI interface.There will be zombie process ')
 
-    CLI(net)  # start cmd line interface
+    # CLI(net)  # start cmd line interface
     """
     To start download test, in CMD line interface,type: client {absolute dir}/MPDtest downnode_mn.json
     In my computer, it's like,

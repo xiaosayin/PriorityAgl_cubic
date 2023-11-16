@@ -1,0 +1,43 @@
+Key,Value
+recv_start_ts, 2003604.0
+recv_end_ts, 61476909.0
+File size, 10.0 MB
+ video duration, 80.0 s
+ download duration, 59.473305 s
+ total data downloaded, 10.0 MB
+ total data downloaded (no duplicate), 10.0 MB 
+Video duration, 10 s
+ amount of data required, 1280.0 KB
+ download duration, 7.674122 s
+ amount of pieces downloaded, 1280
+Video duration, 20 s
+ amount of data required, 2560.0 KB
+ download duration, 15.327948 s
+ amount of pieces downloaded, 2560
+Video duration, 30 s
+ amount of data required, 3840.0 KB
+ download duration, 23.514058 s
+ amount of pieces downloaded, 3840
+Video duration, 40 s
+ amount of data required, 5120.0 KB
+ download duration, 31.226751 s
+ amount of pieces downloaded, 5120
+Video duration, 50 s
+ amount of data required, 6400.0 KB
+ download duration, 38.29543 s
+ amount of pieces downloaded, 6400
+Video duration, 60 s
+ amount of data required, 7680.0 KB
+ download duration, 45.150131 s
+ amount of pieces downloaded, 7680
+Video duration, 70 s
+ amount of data required, 8960.0 KB
+ download duration, 52.726369 s
+ amount of pieces downloaded, 8960
+Video duration, 80 s
+ amount of data required, 10240.0 KB
+ download duration, 59.473305 s
+ amount of pieces downloaded, 10240
+alpha, 1.0
+ belta, 0.0
+ Score, 172.1780889762 KBps 

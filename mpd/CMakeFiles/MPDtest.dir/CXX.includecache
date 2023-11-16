@@ -101,6 +101,8 @@ multipathschedulerI.h
 /home/yinwenpei/PriorityAgl_cubic/demo/multipathschedulerI.h
 numeric
 -
+string
+-
 
 /home/yinwenpei/PriorityAgl_cubic/demo/sessionstreamcontroller.hpp
 deque
@@ -274,6 +276,8 @@ demo/basefw/base/log.h
 multipathschedulerI.h
 demo/multipathschedulerI.h
 numeric
+-
+string
 -
 
 demo/sessionstreamcontroller.hpp

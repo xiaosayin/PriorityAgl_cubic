@@ -8,7 +8,7 @@
 #include "basefw/base/log.h"
 #include "multipathschedulerI.h"
 #include <numeric>
-
+#include <string>
 
 /// min RTT Round Robin multipath scheduler
 class RRMultiPathScheduler : public MultiPathSchedulerAlgo {
@@ -179,7 +179,17 @@ public:
         SPDLOG_TRACE("");
         sortmmap.clear();
         for (auto &&sessionItor: m_dlsessionmap) {
-            double score = sessionItor.second->Get_LossRate();
+            double lossrate = sessionItor.second->Get_LossRate();
+            uint32_t cwnd = sessionItor.second->Get_CWND();
+            SPDLOG_TRACE("[SortSession] cwnd = {}", cwnd);
+            // process rtt to double
+            auto s_rtt = sessionItor.second->GetRtt();
+            std::string str_rtt = s_rtt.ToDebuggingValue();
+            str_rtt = str_rtt.substr(0, str_rtt.length()-2);
+            double sec_rtt = std::stod(str_rtt) / 1000000.0;
+            SPDLOG_TRACE("[SortSession] rtt = {} seconds", sec_rtt);
+
+            double score = lossrate + sec_rtt * 2 - static_cast<double>(cwnd)/10; 
             sortmmap.emplace(score, sessionItor.second);
         }
     }

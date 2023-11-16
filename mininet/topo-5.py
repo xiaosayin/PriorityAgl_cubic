@@ -127,12 +127,20 @@ if __name__ == '__main__':
     # config
     client_left_opts = {"bw": 1000, "delay": "10ms", "max_queue_size": 1000}
     btlink_opts = {"bw": 1.5, "delay": "30ms", "loss1": 1, "loss2": 1, "max_queue_size": 100}
+    # serverlink_opts = [
+    #     {"delay": "5ms"},
+    #     {"delay": "10ms"},
+    #     {"delay": "15ms"},
+    #     {"delay": "20ms"}
+    # ]
+    
     serverlink_opts = [
-        {"delay": "5ms"},
-        {"delay": "10ms"},
-        {"delay": "15ms"},
-        {"delay": "20ms"}
+        {"delay": "5ms", "loss1":7, "loss2":7},
+        {"delay": "10ms", "loss1":3, "loss2":3},
+        {"delay": "15ms", "loss1":15, "loss2":15},
+        {"delay": "20ms", "loss1":11, "loss2":11}
     ]
+    
     server_num = len(serverlink_opts)
 
     topo = DumbbellTopo(server_number=server_num,
@@ -205,7 +213,8 @@ if __name__ == '__main__':
     info(f'client exit, return code{client_proc.poll()}\n')
     info('*** Running CLI\n')
     warning('TYPE exit or CTRL + D to exit!! DO NOT kill the CLI interface.There will be zombie process\n')
-    CLI(net)  # start cmd line interface
+    
+    # CLI(net)  # start cmd line interface
     """
     To start download test, in CMD line interface,type: client {absolute dir}/MPDtest downnode_mn.json
     In my computer, it's like,

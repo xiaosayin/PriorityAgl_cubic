@@ -356,6 +356,10 @@ public:
         return m_lossDetect->Get_LossRate();
     }
 
+    double Get_CWND(){
+        return m_congestionCtl->GetCWND();
+    }
+
 
 private:
     bool isRunning{ false };
